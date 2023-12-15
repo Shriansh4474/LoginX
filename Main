@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pupil Registration Form</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+    }
+    form {
+      max-width: 400px;
+      margin: auto;
+    }
+    label {
+      display: block;
+      margin-bottom: 10px;
+    }
+    input, button {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 15px;
+      box-sizing: border-box;
+    }
+    button {
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+    button:disabled {
+      background-color: #ddd;
+      cursor: not-allowed;
+    }
+  </style>
+</head>
+<body>
+
+  <h2>Pupil Registration Form</h2>
+
+  <form id="registrationForm">
+    <label for="studentId">Student ID:</label>
+    <input type="text" id="studentId" disabled>
+    
+    <label for="completeName">Complete Name:</label>
+    <input type="text" id="completeName" disabled>
+
+    <label for="grade">Grade:</label>
+    <input type="text" id="grade" disabled>
+
+    <label for="dob">Date of Birth:</label>
+    <input type="text" id="dob" disabled>
+
+    <label for="residence">Residence:</label>
+    <input type="text" id="residence" disabled>
+
+    <label for="registrationDate">Registration Date:</label>
+    <input type="text" id="registrationDate" disabled>
+
+    <button type="button" id="storeBtn" onclick="storeData()" disabled>Store</button>
+    <button type="button" id="modifyBtn" onclick="modifyData()" disabled>Modify</button>
+    <button type="button" id="clearBtn" onclick="clearForm()" disabled>Clear</button>
+  </form>
+
+  <script>
+    const db = {Student};
+
+    function storeData() {
+      alert('Data stored successfully!');
+      clearForm();
+    }
+
+    function modifyData() {
+      alert('Data modified successfully!');
+      clearForm();
+    }
+
+    function clearForm() {
+      document.getElementById('registrationForm').reset();
+      document.getElementById('studentId').disabled = false;
+      document.getElementById('storeBtn').disabled = false;
+      document.getElementById('modifyBtn').disabled = true;
+      document.getElementById('clearBtn').disabled = true;
+      document.getElementById('studentId').focus();
+    }
+
+    document.getElementById('registrationForm').addEventListener('input', function () {
+      validateForm();
+    });
+
+    function validateForm() {
+      const studentId = document.getElementById('studentId').value.trim();
+      const completeName = document.getElementById('completeName').value.trim();
+      const grade = document.getElementById('grade').value.trim();
+      const dob = document.getElementById('dob').value.trim();
+      const residence = document.getElementById('residence').value.trim();
+      const registrationDate = document.getElementById('registrationDate').value.trim();
+
+      const isFormValid = studentId !== '' && completeName !== '' && grade !== '' && dob !== '' && residence !== '' && registrationDate !== '';
+
+      document.getElementById('storeBtn').disabled = !isFormValid;
+      document.getElementById('modifyBtn').disabled = !isFormValid;
+      document.getElementById('clearBtn').disabled = false;
+    }
+    
+    document.getElementById('studentId').focus();
+  </script>
+
+</body>
+</html>
